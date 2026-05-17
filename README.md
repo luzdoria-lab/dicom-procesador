@@ -46,3 +46,59 @@ Python se ha consolidado como el estándar de la industria biomédica debido a s
 * **`pydicom`:** Permite la abstracción y parseo nativo de la compleja estructura de archivos médicos sin perder la integridad de los metadatos protegidos.
 * **`opencv` y `numpy`:** Permiten tratar las matrices de los píxeles médicos con operaciones vectorizadas de alta velocidad, crucial para el procesamiento en tiempo real.
 * **`pandas`:** Facilita la estructuración de los metadatos extraídos de múltiples pacientes en DataFrames para su posterior análisis estadístico o entrenamiento de modelos de IA.
+
+# Proceso de ejecución del proyecto
+
+## Paso 1: Clonar el repositorio
+
+Entrar al proyecto:
+cd dicom-procesador
+
+## Paso 2: Ejecutar instalación automática
+
+El archivo `setup.py` instala automáticamente las librerías necesarias para el proyecto.
+Ejecutar:
+python setup.py
+
+## Paso 3: Agregar archivos DICOM
+
+Los archivos `.dcm` deben colocarse dentro de:
+data/dicom/
+
+Ejemplo:
+data/dicom/liver.dcm
+data/dicom/MR2_J2KI.dcm
+
+Si se desean procesar nuevos estudios médicos, únicamente es necesario agregar nuevos archivos DICOM a esta carpeta.
+
+## Paso 4: Ejecutar la aplicación
+
+Ejecutar el archivo principal:
+python src/main.py
+
+
+# Funcionamiento interno de la aplicación
+
+Al ejecutar el programa:
+
+1. Se escanea automáticamente la carpeta `data/dicom/`.
+2. Se identifican archivos DICOM válidos.
+3. Se cargan los estudios usando `pydicom`.
+4. Se extraen metadatos clínicos relevantes.
+5. Se calcula la intensidad promedio de cada imagen usando NumPy.
+6. Las imágenes se normalizan al rango `[0,255]`.
+7. Se aplica ecualización de histograma usando OpenCV.
+8. Se detectan bordes mediante el algoritmo de Canny.
+9. Se guardan imágenes procesadas en formato `.png`.
+10. Se genera automáticamente un archivo CSV con todos los metadatos extraídos.
+
+# Resultados generados
+
+## CSV con metadatos
+data/metadatos_dicom.csv
+
+## Imágenes procesadas
+data/output/
+Contiene:
+- imágenes ecualizadas
+- imágenes con detección de bordes
