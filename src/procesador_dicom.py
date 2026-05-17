@@ -13,4 +13,23 @@ class ProcesadorDICOM:
         self.metadatos = []
 
         os.makedirs(self.directorio_salida, exist_ok=True)
-        
+
+def cargar_dicoms(self):
+
+        archivos_dicom = []
+
+        for root, _, files in os.walk(self.directorio_entrada):
+
+            for file in files:
+
+                ruta = os.path.join(root, file)
+
+                try:
+                    ds = pydicom.dcmread(ruta)
+                    archivos_dicom.append((ruta, ds))
+
+                except Exception as e:
+                    print(f"[ERROR] Archivo no válido: {ruta}")
+                    print(e)
+
+        return archivos_dicom
