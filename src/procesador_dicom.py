@@ -1,8 +1,17 @@
+import subprocess
+import sys
+
+try:
+    import pydicom
+except ImportError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "pydicom"])
+    import pydicom
+import pydicom
+
 import os
 import cv2
 import numpy as np
 import pandas as pd
-import pydicom
 
 
 class ProcesadorDICOM:
