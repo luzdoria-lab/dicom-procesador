@@ -1,10 +1,17 @@
+import os
 from procesador_dicom import ProcesadorDICOM
 
 
 if __name__ == "__main__":
 
-    directorio_entrada = "../data/dicom"
-    directorio_salida = "../data/output"
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    directorio_entrada = os.path.join(base_dir, "data", "dicom")
+
+    directorio_salida = os.path.join(base_dir, "data", "output")
+
+    print("Buscando DICOM en:")
+    print(directorio_entrada)
 
     procesador = ProcesadorDICOM(
         directorio_entrada,
@@ -13,10 +20,17 @@ if __name__ == "__main__":
 
     df = procesador.ejecutar()
 
+    print("\nDATAFRAME:")
     print(df)
 
+    csv_path = os.path.join(
+        base_dir,
+        "data",
+        "metadatos_dicom.csv"
+    )
+
     df.to_csv(
-        "../data/metadatos_dicom.csv",
+        csv_path,
         index=False
     )
 
