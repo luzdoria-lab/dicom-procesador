@@ -89,3 +89,18 @@ class ProcesadorDICOM:
             imagen_ecualizada = cv2.equalizeHist(
                 imagen_normalizada
             )
+            bordes = cv2.Canny(
+                imagen_ecualizada,
+                50,
+                150
+            )
+
+            ruta_ecualizada = os.path.join(
+                self.directorio_salida,
+                f"{identificador}_ecualizada.png"
+            )
+
+            ruta_bordes = os.path.join(
+                self.directorio_salida,
+                f"{identificador}_bordes.png"
+            )
