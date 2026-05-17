@@ -33,3 +33,39 @@ def cargar_dicoms(self):
                     print(e)
 
         return archivos_dicom
+
+def extraer_metadatos(self, ds, ruta_archivo):
+
+        datos = {
+
+            "Archivo": os.path.basename(ruta_archivo),
+
+            "PatientID":
+                getattr(ds, "PatientID", "No disponible"),
+
+            "PatientName":
+                str(getattr(ds, "PatientName", "No disponible")),
+
+            "StudyInstanceUID":
+                getattr(ds, "StudyInstanceUID", "No disponible"),
+
+            "StudyDescription":
+                getattr(ds, "StudyDescription", "No disponible"),
+
+            "StudyDate":
+                getattr(ds, "StudyDate", "No disponible"),
+
+            "Modality":
+                getattr(ds, "Modality", "No disponible"),
+
+            "Rows":
+                getattr(ds, "Rows", None),
+
+            "Columns":
+                getattr(ds, "Columns", None),
+
+            "IntensidadPromedio":
+                None
+        }
+
+        return datos
