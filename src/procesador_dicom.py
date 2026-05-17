@@ -104,3 +104,22 @@ class ProcesadorDICOM:
                 self.directorio_salida,
                 f"{identificador}_bordes.png"
             )
+
+            cv2.imwrite(
+                ruta_ecualizada,
+                imagen_ecualizada
+            )
+
+            cv2.imwrite(
+                ruta_bordes,
+                bordes
+            )
+
+            return intensidad_promedio
+
+        except Exception as e:
+
+            print(f"[WARNING] No se pudo procesar: {identificador}")
+            print(e)
+
+            return None
