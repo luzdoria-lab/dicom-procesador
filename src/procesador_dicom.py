@@ -123,3 +123,26 @@ class ProcesadorDICOM:
             print(e)
 
             return None
+        
+    def ejecutar(self):
+
+        archivos = self.cargar_dicoms()
+
+        for ruta, ds in archivos:
+
+            datos = self.extraer_metadatos(ds, ruta)
+
+            identificador = datos["StudyInstanceUID"]
+
+            intensidad = self.procesar_imagen(
+                ds,
+                identificador
+            )
+
+            datos["IntensidadPromedio"] = intensidad
+
+            self.metadatos.append(datos)
+
+        df = pd.DataFrame(self.metadatos)
+
+        return df
